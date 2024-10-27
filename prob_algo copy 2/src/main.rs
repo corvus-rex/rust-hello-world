@@ -3,9 +3,9 @@ use std::time::Instant;
 use plotters::prelude::*;
 
 fn main() {
-    let sizes = vec![10_u128.pow(4), 10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7),10_u128.pow(8)];
+    let sizes = vec![10_usize.pow(3),5*10_usize.pow(3), 10_usize.pow(4),5*10_usize.pow(4),10_usize.pow(5)];
 
-    let complexity = "n"; // Change to "n", "logn", or "nlogn"
+    let complexity = "nlogn"; // Change to "n", "logn", or "nlogn"
     let mut times = vec![(0, 0.0); sizes.len()]; 
 
     for (index, &n) in sizes.iter().enumerate() {
@@ -14,7 +14,6 @@ fn main() {
         let (time_taken, _) = hire(&c, complexity); 
         times[index].0 = n; 
         times[index].1 = time_taken.as_secs_f64(); 
-        println!("Current: {} / Total: 5", index+1);
     }
 
     plot_results(&times, complexity); 
@@ -27,7 +26,7 @@ fn hire(c: &[i64], complexity: &str) -> (std::time::Duration, i64) {
 
     let start = Instant::now(); // Start timing
     while i < c.len() {
-        // println!("Current: {} / Total: {}", i as i64 + 1, total_count);
+        println!("Current: {} / Total: {}", i as i64 + 1, total_count);
         if c[i] > hired {
             match complexity {
                 "n" => hiring_on(c),         // O(n) algorithm
@@ -43,10 +42,7 @@ fn hire(c: &[i64], complexity: &str) -> (std::time::Duration, i64) {
 }
 
 fn hiring_on(c: &[i64]) {
-    let mut _sum: i128 = 0;
-    for (index, &n) in c.iter().enumerate() {
-        _sum = c[index] as i128 * 2;  
-    }
+    let _sum: i64 = c.iter().sum(); 
 }
 
 fn hiring_ologn(c: &[i64]) {
@@ -66,12 +62,12 @@ fn hiring_onlogn(c: &[i64]) {
     }
 }
 
-fn generate_random_array(n: u128) -> Vec<i64> {
+fn generate_random_array(n: usize) -> Vec<i64> {
     let mut rng = rand::thread_rng();
     (0..n).map(|_| rng.gen_range(0..10001)).collect()  
 }
 
-fn plot_results(times: &[(u128, f64)], complexity: &str) {
+fn plot_results(times: &[(usize, f64)], complexity: &str) {
     let filename = format!("{}.png", complexity); // Create filename based on complexity
     let root = BitMapBackend::new(&filename, (640, 480)).into_drawing_area();
     root.fill(&WHITE).unwrap();
@@ -114,8 +110,8 @@ fn plot_results(times: &[(u128, f64)], complexity: &str) {
         .unwrap();
 }
 
-fn find_max(times: &[(u128, f64)]) -> (i64, f64) {
-    let mut max_usize: Option<u128> = None;
+fn find_max(times: &[(usize, f64)]) -> (i64, f64) {
+    let mut max_usize: Option<usize> = None;
     let mut max_f64: Option<f64> = None;
 
     for &(us, fl) in times {
@@ -138,8 +134,8 @@ fn find_max(times: &[(u128, f64)]) -> (i64, f64) {
     (max_usize, max_f64)
 }
 
-fn find_min(times: &[(u128, f64)]) -> (i64, f64) {
-    let mut min_usize: Option<u128> = None;
+fn find_min(times: &[(usize, f64)]) -> (i64, f64) {
+    let mut min_usize: Option<usize> = None;
     let mut min_f64: Option<f64> = None;
 
     for &(us, fl) in times {

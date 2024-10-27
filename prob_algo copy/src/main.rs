@@ -3,9 +3,11 @@ use std::time::Instant;
 use plotters::prelude::*;
 
 fn main() {
-    let sizes = vec![10_u128.pow(4), 10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7),10_u128.pow(8)];
+    let sizes = vec![10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7),10_u128.pow(8),10_u128.pow(9)];
+    // let sizes = vec![10_usize.pow(3),10_usize.pow(4), 10_usize.pow(5), 10_usize.pow(6), 10_usize.pow(7)];
+    // let sizes = vec![10_usize.pow(1),10_usize.pow(2),10_usize.pow(3),10_usize.pow(4), 10_usize.pow(5)];
 
-    let complexity = "n"; // Change to "n", "logn", or "nlogn"
+    let complexity = "logn"; // Change to "n", "logn", or "nlogn"
     let mut times = vec![(0, 0.0); sizes.len()]; 
 
     for (index, &n) in sizes.iter().enumerate() {
@@ -43,9 +45,9 @@ fn hire(c: &[i64], complexity: &str) -> (std::time::Duration, i64) {
 }
 
 fn hiring_on(c: &[i64]) {
-    let mut _sum: i128 = 0;
+    let mut _sum: i64 = 0;
     for (index, &n) in c.iter().enumerate() {
-        _sum = c[index] as i128 * 2;  
+        _sum += c[index]; 
     }
 }
 
@@ -58,11 +60,8 @@ fn hiring_ologn(c: &[i64]) {
 
 fn hiring_onlogn(c: &[i64]) {
     let n = c.len() as i64;
-    let mut c: i64= 0;
     for _i in 0..n {
-        for _j in (1..=n).step_by(2) {
-            c += 1;
-        }
+        for _j in (1..=n).step_by(2) {}
     }
 }
 
