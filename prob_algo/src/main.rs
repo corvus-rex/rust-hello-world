@@ -8,8 +8,8 @@ use rand::Rng;
 
 fn main() {
     // Define different sizes for each complexity type
-    let sizes_n = vec![10_u128.pow(3), 10_u128.pow(4), 10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7), 10_u128.pow(8)];
-    let sizes_logn = vec![10_u128.pow(3), 10_u128.pow(4), 10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7), 10_u128.pow(8), 10_u128.pow(9)];
+    let sizes_n = vec![10_u128.pow(3), 10_u128.pow(4), 10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7), 10_u128.pow(8), 3*10_u128.pow(8)];
+    let sizes_logn = vec![10_u128.pow(3), 10_u128.pow(4), 10_u128.pow(5), 10_u128.pow(6), 10_u128.pow(7), 10_u128.pow(8), 3*10_u128.pow(8)];
     let sizes_nlogn = vec![10_u128.pow(3), 5 * 10_u128.pow(3), 10_u128.pow(4), 5 * 10_u128.pow(4), 10_u128.pow(5)];
 
     let complexities = vec![
@@ -107,7 +107,7 @@ fn plot_all_results(results: &[(String, Vec<(u128, f64)>)]) {
     let root = BitMapBackend::new("plot.png", (640, 480)).into_drawing_area();
     root.fill(&WHITE).unwrap();
 
-    let (min_size, max_size) = (10_u128.pow(3) as i64, 10_u128.pow(8) as i64); // Set appropriate range
+    let (min_size, max_size) = (10_u128.pow(3) as i64, 3*10_u128.pow(8) as i64); 
     let min_time = 0.0;
     let max_time = results.iter()
         .flat_map(|(_, times)| times.iter().map(|&(_, time)| time))
@@ -131,7 +131,7 @@ fn plot_all_results(results: &[(String, Vec<(u128, f64)>)]) {
             &color,
         )).unwrap()
         .label(complexity)
-        .legend(move |(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], &color)); // Use color reference here
+        .legend(move |(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], &color));
     }
 
     chart.configure_series_labels().border_style(&BLACK).draw().unwrap();
