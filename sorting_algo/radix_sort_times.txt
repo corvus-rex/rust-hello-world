@@ -1,0 +1,28 @@
+Algorithm: Radix Sort
+Size: 1000, Time: 0.0001549
+Size: 5000, Time: 0.0006823
+Size: 10000, Time: 0.0012102
+Size: 50000, Time: 0.0069543
+Size: 100000, Time: 0.0127292
+Size: 500000, Time: 0.0819711
+Size: 1000000, Time: 0.1437893
+Size: 5000000, Time: 0.8191195
+Size: 10000000, Time: 1.6235366
+Size: 50000000, Time: 14.4951672
+Algorithm: Selection Sort
+Size: 1000, Time: 0.000654
+Size: 5000, Time: 0.0139513
+Size: 10000, Time: 0.0577761
+Size: 50000, Time: 1.6061977
+Size: 100000, Time: 6.4411184
+Algorithm: Merge Sort
+Size: 1000, Time: 0.0007694
+Size: 5000, Time: 0.0038002
+Size: 10000, Time: 0.0076769
+Size: 50000, Time: 0.0423499
+Size: 100000, Time: 0.092162
+Size: 500000, Time: 0.3857712
+Size: 1000000, Time: 0.8731548
+Size: 5000000, Time: 4.7059016
+Size: 10000000, Time: 8.7581273
+Size: 50000000, Time: 45.7951525

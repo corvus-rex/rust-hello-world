@@ -25,6 +25,21 @@ fn bucket_sort(array: &mut [i64], k: usize) {
     }
 }
 
+
+fn radix_sort_base10(nums: &mut [i64]) {
+    let mut buckets = vec![vec![]; 10];
+    for i in 0..10 {
+        nums.iter()
+            .for_each(|&x| buckets[((x / 10_i64.pow(i)) % 10) as usize].push(x));
+        buckets
+            .iter()
+            .flat_map(|b| b.iter())
+            .zip(nums.iter_mut())
+            .for_each(|(&x, y)| *y = x);
+        buckets.iter_mut().for_each(|b| b.clear());
+    }
+}
+
 fn selection_sort(arr: &mut Vec<i64>) {
     let len = arr.len();
     for i in 0..len {
@@ -124,7 +139,7 @@ fn main() -> io::Result<()> {
     1000000, 5000000, 10000000, 50000000];
 
     let mut results: Vec<(String, Vec<(u128, f64)>)> = Vec::new();
-    let mut bucket_sort_times: Vec<(u128, f64)> = Vec::new();
+    let mut radix_sort_times: Vec<(u128, f64)> = Vec::new();
     let mut selection_sort_times: Vec<(u128, f64)> = Vec::new();
     let mut merge_sort_times: Vec<(u128, f64)> = Vec::new();
     
@@ -134,14 +149,13 @@ fn main() -> io::Result<()> {
         
         let start = Instant::now();
         
-        let num_buckets = (size as f64).sqrt().floor() as usize;
-        bucket_sort(&mut arr, num_buckets);
+        radix_sort_base10(&mut arr);
         
         let duration = start.elapsed().as_secs_f64();
         
-        bucket_sort_times.push((size as u128, duration));
+        radix_sort_times.push((size as u128, duration));
         
-        println!("Bucket sorted array of size {} in {} seconds", size, duration);
+        println!("Radix sorted array of size {} in {} seconds", size, duration);
 
         if size <= 1_00000 {
             let start = Instant::now();
@@ -159,11 +173,11 @@ fn main() -> io::Result<()> {
         }
     }
     
-    results.push(("Bucket Sort".to_string(), bucket_sort_times));
+    results.push(("Radix Sort".to_string(), radix_sort_times));
     results.push(("Selection Sort".to_string(), selection_sort_times));
     results.push(("Merge Sort".to_string(), merge_sort_times));
     
-    let mut file = File::create("bucket_sort_times.txt")?;
+    let mut file = File::create("radix_sort_times.txt")?;
     for (algorithm, times) in results.iter() {
         writeln!(file, "Algorithm: {}", algorithm)?;
         for (size, time) in times {
