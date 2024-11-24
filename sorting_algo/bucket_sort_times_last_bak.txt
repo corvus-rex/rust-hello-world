@@ -1,0 +1,28 @@
+Algorithm: Bucket Sort
+Size: 1000, Time: 0.0018056
+Size: 5000, Time: 0.0165064
+Size: 10000, Time: 0.0430097
+Size: 50000, Time: 0.4441324
+Size: 100000, Time: 1.3354346000000001
+Size: 500000, Time: 14.8142637
+Size: 1000000, Time: 41.4609852
+Size: 5000000, Time: 460.0630313
+Size: 10000000, Time: 1298.4694323
+Size: 50000000, Time: 9893.2120109
+Algorithm: Selection Sort
+Size: 1000, Time: 0.0428606
+Size: 5000, Time: 1.0140339
+Size: 10000, Time: 4.1761883
+Size: 50000, Time: 104.2488811
+Size: 100000, Time: 415.378299
+Algorithm: Merge Sort
+Size: 1000, Time: 0.003966
+Size: 5000, Time: 0.0150108
+Size: 10000, Time: 0.0395085
+Size: 50000, Time: 0.1847406
+Size: 100000, Time: 0.351304
+Size: 500000, Time: 1.7988737000000001
+Size: 1000000, Time: 3.8005526
+Size: 5000000, Time: 20.3788226
+Size: 10000000, Time: 41.7106622
+Size: 50000000, Time: 98.653175

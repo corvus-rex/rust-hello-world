@@ -7,3 +7,6 @@ edition = "2021"
 rand = "0.8"
 plotters = "0.3"
 
+[profile.dev]
+opt-level = 3
+

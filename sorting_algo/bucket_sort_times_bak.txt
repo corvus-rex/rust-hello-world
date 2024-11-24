@@ -1,0 +1,17 @@
+Algorithm: Bucket Sort
+Size: 1000, Time: 0.0007874
+Size: 5000, Time: 0.0069648
+Size: 10000, Time: 0.0183538
+Size: 50000, Time: 0.2142444
+Size: 100000, Time: 0.5493803
+Size: 500000, Time: 6.1320533
+Size: 1000000, Time: 17.3644589
+Size: 5000000, Time: 215.3618211
+Size: 10000000, Time: 569.1278112
+Size: 50000000, Time: 6050.2906728
+Algorithm: Selection Sort
+Size: 1000, Time: 0.0177714
+Size: 5000, Time: 0.4219497
+Size: 10000, Time: 1.7246386999999999
+Size: 50000, Time: 42.9244639
+Size: 100000, Time: 171.1742872

@@ -38,6 +38,51 @@ fn selection_sort(arr: &mut Vec<i64>) {
     }
 }
 
+fn merge(left: &Vec<i64>, right: &Vec<i64>) -> Vec<i64> {
+    let mut i = 0;
+    let mut j = 0;
+    let mut merged: Vec<i64> = Vec::new();
+
+    while i < left.len() && j < right.len() {
+        if left[i] < right[j] {
+            merged.push(left[i]);
+            i = i + 1;
+        } else {
+            merged.push(right[j]);
+            j = j + 1;
+        }
+    }
+
+    if i < left.len() {
+        while i < left.len() {
+            merged.push(left[i]);
+            i = i + 1;
+        }
+    }
+
+    if j < right.len() {
+        while j < right.len() {
+            merged.push(right[j]);
+            j = j + 1;
+        }
+    }
+
+    merged
+}
+
+fn merge_sort(vec: &Vec<i64>) -> Vec<i64> {
+    if vec.len() < 2 {
+        vec.to_vec()
+    } else {
+        let size = vec.len() / 2;
+        let left = merge_sort(&vec[0..size].to_vec());
+        let right = merge_sort(&vec[size..].to_vec());
+        let merged = merge(&left, &right);
+
+        merged
+    }
+}
+
 
 fn plot_all_results(results: &[(String, Vec<(u128, f64)>)]) {
     let root = BitMapBackend::new("plot.png", (640, 480)).into_drawing_area();
@@ -81,6 +126,7 @@ fn main() -> io::Result<()> {
     let mut results: Vec<(String, Vec<(u128, f64)>)> = Vec::new();
     let mut bucket_sort_times: Vec<(u128, f64)> = Vec::new();
     let mut selection_sort_times: Vec<(u128, f64)> = Vec::new();
+    let mut merge_sort_times: Vec<(u128, f64)> = Vec::new();
     
     for &size in sizes_bucket.iter() {
         let mut rng = rand::thread_rng();
@@ -104,10 +150,18 @@ fn main() -> io::Result<()> {
             selection_sort_times.push((size as u128, duration));
             println!("Selection sorted array of size {} in {} seconds", size, duration);
         }
+        if size <= 5_0000000 {
+            let start = Instant::now();
+            merge_sort(&mut arr);
+            let duration = start.elapsed().as_secs_f64();
+            merge_sort_times.push((size as u128, duration));
+            println!("Merge sorted array of size {} in {} seconds", size, duration);
+        }
     }
     
     results.push(("Bucket Sort".to_string(), bucket_sort_times));
     results.push(("Selection Sort".to_string(), selection_sort_times));
+    results.push(("Merge Sort".to_string(), merge_sort_times));
     
     let mut file = File::create("bucket_sort_times.txt")?;
     for (algorithm, times) in results.iter() {
